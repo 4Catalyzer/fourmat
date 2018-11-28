@@ -25,7 +25,7 @@ def system(command):
 
 setup(
     name="Fourmat",
-    version="0.1.0",
+    version="0.1.1",
     description="A library for batteries-included linting and autoformatting",
     url="https://github.com/4Catalyzer/fourmat",
     author="Giacomo Tagliabue",
@@ -40,7 +40,7 @@ setup(
     ),
     keywords="lint autoformat black flake8 isort",
     packages=find_packages(),
-    package_data={"fourmat": ("assets/.*",)},
+    package_data={"fourmat": ("assets/*.*", "assets/.*")},
     install_requires=(
         "click >= 7",
         # Pin these to avoid unplanned messy diffs.
