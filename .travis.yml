@@ -10,7 +10,7 @@ install:
   - pip install -e .
 
 script:
-  - black8 check
+  - fourmat check
 
 branches:
   only:

@@ -12,7 +12,7 @@ from . import ASSETS_DIR, cli
 
 # -----------------------------------------------------------------------------
 
-CONFIG_FILE = Path(".black8")
+CONFIG_FILE = Path(".fourmat")
 
 SNAPSHOT_GLOB = "*/snapshots/snap_*.py"
 SNAPSHOT_REGEX = r".*\/snapshots\/snap_.*\.py"
@@ -96,7 +96,7 @@ def isort(paths, *, project_paths, check=False):
 
 
 def flake8(paths, *, check=True):
-    assert check is True, "Flake8 has no format mode"
+    assert check is True, "Flake8 has no fix mode"
 
     subprocess.run(("flake8", "--", *paths), check=True)
 
@@ -109,7 +109,7 @@ def flake8(paths, *, check=True):
 )
 @click.option("-c", "--override-config", is_flag=True)
 @click.argument("files", nargs=-1)
-def lint(override_config, files):
+def check(override_config, files):
     try:
         project_paths = get_project_paths()
         files = files or project_paths
@@ -140,8 +140,8 @@ def lint(override_config, files):
 
 
 @cli.command(
-    "format",
-    help=f"automatically format code. If no file is specified, it will run on all the files specified in {CONFIG_FILE}",
+    "fix",
+    help=f"automatically fix code. If no file is specified, it will run on all the files specified in {CONFIG_FILE}",
 )
 @click.option(
     "-c",
@@ -150,7 +150,7 @@ def lint(override_config, files):
     help=f"specify this flag to override the config files ({', '.join(CONFIGURATION_FILES)})",
 )
 @click.argument("files", nargs=-1)
-def format_code(*, override_config, files):
+def fix(*, override_config, files):
     try:
         project_paths = get_project_paths()
         copy_configuration(override=override_config)

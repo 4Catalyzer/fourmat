@@ -24,10 +24,10 @@ def system(command):
 # -----------------------------------------------------------------------------
 
 setup(
-    name="Black8",
+    name="Fourmat",
     version="0.1.0",
     description="A library for batteries-included linting and autoformatting",
-    url="https://github.com/4Catalyzer/black8",
+    url="https://github.com/4Catalyzer/fourmat",
     author="Giacomo Tagliabue",
     author_email="giacomo@gmail.com",
     license="MIT",
@@ -38,7 +38,7 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
     ),
-    keywords="lint autoformat black flake8",
+    keywords="lint autoformat black flake8 isort",
     packages=find_packages(),
     install_requires=(
         "click >= 7",
@@ -49,7 +49,7 @@ setup(
         "isort==4.3.4",
     ),
     python_requires=">=3",
-    entry_points={"console_scripts": ("black8 = black8:cli",)},
+    entry_points={"console_scripts": ("fourmat = fourmat:cli",)},
     cmdclass={
         "clean": system("rm -rf build dist *.egg-info"),
         "package": system("python setup.py sdist bdist_wheel"),

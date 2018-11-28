@@ -1,18 +1,24 @@
-# Black8
+# Fourmat
 
 A library for batteries-included linting and autoformatting.
 
-## Usage
+## Installation and Usage
 
-Install black8 through pip:
+Install fourmat through pip:
 
 ```sh
-$ pip install black8
+$ pip install fourmat
 ```
 
-Create a `.black8` file to specify the directories and files to check.
+Create a `.fourmat` file to specify the directories and files to check.
 
-## Adding Black8 as a pre-commit hook
+```sh
+$ fourmat check
+
+$ fourmat fix
+```
+
+## Adding Fourmat as a pre-commit hook
 
 Install the pre-commit package:
 
@@ -26,9 +32,9 @@ Create a `.pre-commit-config.yaml` containing:
 repos:
 - repo: local
   hooks:
-    - id: black8
-      name: black8
-      entry: black8 format
+    - id: fourmat
+      name: fourmat
+      entry: fourmat fix
       language: system
       types: [python]
 ```
