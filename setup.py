@@ -40,6 +40,7 @@ setup(
     ),
     keywords="lint autoformat black flake8 isort",
     packages=find_packages(),
+    package_data={"fourmat": ("assets/.*",)},
     install_requires=(
         "click >= 7",
         # Pin these to avoid unplanned messy diffs.
