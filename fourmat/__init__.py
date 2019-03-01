@@ -1,7 +1,7 @@
 from pathlib import Path
-from pkg_resources import get_distribution, DistributionNotFound
 
 import click
+from pkg_resources import DistributionNotFound, get_distribution
 
 # -----------------------------------------------------------------------------
 
@@ -26,4 +26,4 @@ def cli():
 
 # -----------------------------------------------------------------------------
 
-from . import lint  # noqa: F401
+from . import lint  # isort:skip  # noqa: F401
