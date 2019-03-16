@@ -1,17 +1,18 @@
-sudo: false
-
 language: python
-python:
-  - "3.6"
-
+dist: xenial
+matrix:
+  include:
+    - { python: "3.6",   env: "TOXENV=py36" }
+    - { python: "3.7",   env: "TOXENV=py37" }
+cache:
+  directories:
+    - $HOME/.cache/pip
 before_install:
   - pip install -U pip
 install:
-  - pip install -e .
-
+  - pip install -U tox
 script:
-  - fourmat check
-
+  - python setup.py test
 branches:
   only:
     - master

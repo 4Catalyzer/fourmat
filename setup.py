@@ -56,5 +56,6 @@ setup(
         "package": system("python setup.py sdist bdist_wheel"),
         "publish": system("twine upload dist/*"),
         "release": system("python setup.py clean package publish"),
+        'test': system('tox'),
     },
 )
