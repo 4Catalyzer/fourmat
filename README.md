@@ -30,13 +30,10 @@ Create a `.pre-commit-config.yaml` containing:
 
 ```yaml
 repos:
-- repo: local
+- repo: https://github.com/4Catalyzer/fourmat
+  rev: master  # or specify a version
   hooks:
     - id: fourmat
-      name: fourmat
-      entry: fourmat fix
-      language: system
-      types: [python]
 ```
 
 then install the hook:
