@@ -49,12 +49,13 @@ setup(
         "flake8==3.6.0",
         "isort== 4.3.9",
     ),
-    python_requires=">=3",
+    python_requires=">=3.6",
     entry_points={"console_scripts": ("fourmat = fourmat:cli",)},
     cmdclass={
         "clean": system("rm -rf build dist *.egg-info"),
         "package": system("python setup.py sdist bdist_wheel"),
         "publish": system("twine upload dist/*"),
         "release": system("python setup.py clean package publish"),
+        'test': system('tox'),
     },
 )
