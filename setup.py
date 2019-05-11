@@ -44,7 +44,7 @@ setup(
     install_requires=(
         "click >= 7",
         # Pin these to avoid unplanned messy diffs.
-        "black==18.9b0",
+        "black==19.3b0",
         "flake8-bugbear==18.8.0",
         "flake8==3.6.0",
         "isort== 4.3.9",
@@ -56,6 +56,6 @@ setup(
         "package": system("python setup.py sdist bdist_wheel"),
         "publish": system("twine upload dist/*"),
         "release": system("python setup.py clean package publish"),
-        'test': system('tox'),
+        "test": system("tox"),
     },
 )
