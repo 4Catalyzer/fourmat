@@ -1,8 +1,24 @@
 - id: fourmat
   name: fourmat
-  description: 'Fourmat: Batteries-included linting and autoformatting'
+  description: 'Deprecated. Use `fourmat-fix`.'
   entry: fourmat fix
   language: python
   language_version: python3
   require_serial: true  # https://github.com/ambv/black/pull/675
+  types: [python]
+- id: fourmat-fix
+  name: fourmat fix
+  description: 'Format code with fourmat.'
+  entry: fourmat fix
+  language: python
+  language_version: python3
+  require_serial: true  # https://github.com/ambv/black/pull/675
+  types: [python]
+- id: fourmat-check
+  name: fourmat check
+  description: 'Check syntax with fourmat.'
+  entry: fourmat check
+  language: python
+  language_version: python3
+  require_serial: true
   types: [python]
