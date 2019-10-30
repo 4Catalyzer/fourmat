@@ -44,7 +44,7 @@ setup(
     install_requires=(
         "click >= 7",
         # Pin these to avoid unplanned messy diffs.
-        "black==19.3b0",
+        "black==19.10b0",
         "flake8-bugbear==19.8.0",
         "flake8==3.7.9",
         "isort== 4.3.21",
