@@ -25,7 +25,7 @@ def system(command):
 
 setup(
     name="Fourmat",
-    version="0.3.0",
+    version="0.4.0",
     description="A library for batteries-included linting and autoformatting",
     url="https://github.com/4Catalyzer/fourmat",
     author="Giacomo Tagliabue",
