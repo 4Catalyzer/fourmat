@@ -45,9 +45,9 @@ setup(
         "click >= 7",
         # Pin these to avoid unplanned messy diffs.
         "black==19.3b0",
-        "flake8-bugbear==18.8.0",
-        "flake8==3.6.0",
-        "isort== 4.3.9",
+        "flake8-bugbear==19.8.0",
+        "flake8==3.7.9",
+        "isort== 4.3.21",
     ),
     python_requires=">=3.6",
     entry_points={"console_scripts": ("fourmat = fourmat:cli",)},
