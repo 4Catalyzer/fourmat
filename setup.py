@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="fourmat",
-    version="0.4.2",
+    version="0.4.3",
     description="A library for batteries-included linting and autoformatting",
     url="https://github.com/4Catalyzer/fourmat",
     author="Giacomo Tagliabue",
