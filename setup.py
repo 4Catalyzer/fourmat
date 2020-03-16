@@ -31,13 +31,14 @@ setup(
     author="Giacomo Tagliabue",
     author_email="giacomo@gmail.com",
     license="MIT",
-    classifiers=(
+    python_requires=">=3.6",
+    classifiers=[
         "Development Status :: 3 - Alpha",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-    ),
+    ],
     keywords="lint autoformat black flake8 isort",
     packages=find_packages(),
     package_data={"fourmat": ("assets/*.*", "assets/.*")},
@@ -49,7 +50,6 @@ setup(
         "flake8==3.7.9",
         "isort== 4.3.21",
     ),
-    python_requires=">=3.6",
     entry_points={"console_scripts": ("fourmat = fourmat:cli",)},
     cmdclass={"test": system("tox")},
 )
