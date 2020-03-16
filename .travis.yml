@@ -1,14 +1,16 @@
-language: python
 dist: xenial
+
+language: python
+
 jobs:
   include:
-    - { python: "3.6",   env: "TOXENV=py36" }
-    - { python: "3.7",   env: "TOXENV=py37" }
-    - { python: "3.8",   env: "TOXENV=py38" }
+    - { python: "3.8", env: "TOXENV=py38" }
+    - { python: "3.7", env: "TOXENV=py37" }
+    - { python: "3.6", env: "TOXENV=py36" }
 
-    - stage: PyPI Release
+    - stage: Release
       if: tag IS present
-      python: "3.7"
+      python: "3.8"
       env: []
       before_install: skip
       install: skip
@@ -16,21 +18,25 @@ jobs:
       deploy:
         provider: pypi
         user: itajaja
+        password:
+          secure: "Kdp9xxTk36kbLhDfa1b2kg51swzagJKNnNtQSAM/CWqLc96D0nQ20Niin2T6Mb3ge9xv4KrXPMQTaqld2hH44flZ+ydryHi4KfmJ+WZ3pTxpvFx4T9rouafkhFR8G9E0g1v6FLAasDuXDXk+n2Be6Y+lEoQ2domHRDr6pFw01UfnSrdBWYjH90Znq0tsp6zUkKmWcRHo+a7AnfIfByLYgTWcMw9BNUHOLYUf6Hw9wWL4tMGWyaICsCP8cI0GRK7CYxfA5qCzOP8onahp1TAo3YPy5eNKINbVEWcu4ELY2Cuu/kBWYjLoZ1K0qVixmbXTnQTSRtZGnSt0/KLHhPJZgzuYbLSN/C/tiirCYtWG0eE0J1fQIN0rzktkCN9cQ3Yra441tGEwND3IK4G7Rq/wJ5tQX52bDvgwqgKe7YSCpk2HQs5p206sTFy3WnzMNX7gov1oiLx1TGbE7B0t4ZL+TGlB0/aXuMixvB8TOJYM70UDesNsjOHD+FkQcEJ5BtAucDW/35LeKLi2LDV5lEl27sjpVtM1ljwfBLKHKG4BzUkfK45KzDxVUIb3596hGScY2LGYI211Jx8pXGatOmEZlWPyD+hexV15naqLWseuT7Fd7t5FHyYVGZeWM5waxODB+2vcYoMA4l4rCWO37diAv2suJgc1wrKx7VWA1FMPdqc="
         on:
           tags: true
         distributions: sdist bdist_wheel
-        password:
-          secure: "Kdp9xxTk36kbLhDfa1b2kg51swzagJKNnNtQSAM/CWqLc96D0nQ20Niin2T6Mb3ge9xv4KrXPMQTaqld2hH44flZ+ydryHi4KfmJ+WZ3pTxpvFx4T9rouafkhFR8G9E0g1v6FLAasDuXDXk+n2Be6Y+lEoQ2domHRDr6pFw01UfnSrdBWYjH90Znq0tsp6zUkKmWcRHo+a7AnfIfByLYgTWcMw9BNUHOLYUf6Hw9wWL4tMGWyaICsCP8cI0GRK7CYxfA5qCzOP8onahp1TAo3YPy5eNKINbVEWcu4ELY2Cuu/kBWYjLoZ1K0qVixmbXTnQTSRtZGnSt0/KLHhPJZgzuYbLSN/C/tiirCYtWG0eE0J1fQIN0rzktkCN9cQ3Yra441tGEwND3IK4G7Rq/wJ5tQX52bDvgwqgKe7YSCpk2HQs5p206sTFy3WnzMNX7gov1oiLx1TGbE7B0t4ZL+TGlB0/aXuMixvB8TOJYM70UDesNsjOHD+FkQcEJ5BtAucDW/35LeKLi2LDV5lEl27sjpVtM1ljwfBLKHKG4BzUkfK45KzDxVUIb3596hGScY2LGYI211Jx8pXGatOmEZlWPyD+hexV15naqLWseuT7Fd7t5FHyYVGZeWM5waxODB+2vcYoMA4l4rCWO37diAv2suJgc1wrKx7VWA1FMPdqc="
+
 cache:
   directories:
     - $HOME/.cache/pip
+
 before_install:
   - pip install -U pip
 install:
   - pip install -U tox
+
 script:
-  - python setup.py test
+  - tox
+
 branches:
   only:
     - master
-    - /^v.*$/
+    - /^v\d+\.\d+\.\d+(-\S+)?$/
