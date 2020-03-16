@@ -1,27 +1,4 @@
-import subprocess
-
-from setuptools import Command, find_packages, setup
-
-# -----------------------------------------------------------------------------
-
-
-def system(command):
-    class SystemCommand(Command):
-        user_options = []
-
-        def initialize_options(self):
-            pass
-
-        def finalize_options(self):
-            pass
-
-        def run(self):
-            subprocess.check_call(command, shell=True)
-
-    return SystemCommand
-
-
-# -----------------------------------------------------------------------------
+from setuptools import find_packages, setup
 
 setup(
     name="fourmat",
@@ -38,18 +15,21 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3 :: Only",
     ],
     keywords="lint autoformat black flake8 isort",
     packages=find_packages(),
     package_data={"fourmat": ("assets/*.*", "assets/.*")},
     install_requires=(
-        "click >= 7",
+        "click>=7",
         # Pin these to avoid unplanned messy diffs.
         "black==19.10b0",
         "flake8-bugbear==19.8.0",
         "flake8==3.7.9",
-        "isort== 4.3.21",
+        "isort==4.3.21",
     ),
     entry_points={"console_scripts": ("fourmat = fourmat:cli",)},
-    cmdclass={"test": system("tox")},
 )
