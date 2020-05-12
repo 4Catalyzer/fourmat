@@ -27,7 +27,7 @@ setup(
         "click>=7",
         # Pin these to avoid unplanned messy diffs.
         "black==19.10b0",
-        "flake8-bugbear==20.1.4 ",
+        "flake8-bugbear==20.1.4",
         "flake8==3.8.1",
         "isort==4.3.21",
     ),
