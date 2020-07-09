@@ -28,8 +28,8 @@ setup(
         # Pin these to avoid unplanned messy diffs.
         "black==19.10b0",
         "flake8-bugbear==20.1.4",
-        "flake8==3.8.1",
-        "isort==4.3.21",
+        "flake8==3.8.3",
+        "isort==5.0.6",
     ),
     entry_points={"console_scripts": ("fourmat = fourmat:cli",)},
 )

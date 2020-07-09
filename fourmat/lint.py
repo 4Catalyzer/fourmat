@@ -81,13 +81,12 @@ def isort(paths, *, project_paths, check=False):
     subprocess.run(
         (
             "isort",
-            *(("--check", "--diff") if check else ("--apply",)),
-            *(arg for path in project_paths for arg in ("--project", path)),
+            *(("--check", "--diff") if check else ()),
+            *(arg for path in project_paths for arg in ("--src", path)),
             "--skip-glob",
             SNAPSHOT_GLOB,
             "--atomic",
             "--quiet",
-            "--recursive",
             "--",
             *paths,
         ),
