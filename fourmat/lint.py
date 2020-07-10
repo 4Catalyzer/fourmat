@@ -77,12 +77,11 @@ def black(paths, *, check=False):
     )
 
 
-def isort(paths, *, project_paths, check=False):
+def isort(paths, *, check=False):
     subprocess.run(
         (
             "isort",
             *(("--check", "--diff") if check else ()),
-            *(arg for path in project_paths for arg in ("--src", path)),
             "--skip-glob",
             SNAPSHOT_GLOB,
             "--atomic",
@@ -106,13 +105,18 @@ def flake8(paths, *, check=True):
 @cli.command(
     help=f"check code style. If no file is specified, it will run on all the files specified in {CONFIG_FILE}"
 )
-@click.option("-c", "--override-config", is_flag=True)
+@click.option(
+    "-c",
+    "--override-config",
+    is_flag=True,
+    help=f"specify this flag to override the config files ({', '.join(CONFIGURATION_FILES)})",
+)
 @click.argument("files", nargs=-1)
 def check(override_config, files):
     try:
-        project_paths = get_project_paths()
-        files = files or project_paths
+        files = files or get_project_paths()
         copy_configuration(override=override_config)
+
         status = 0
 
         @contextmanager
@@ -126,7 +130,7 @@ def check(override_config, files):
         # When linting, continue running linters even after failures, to
         # display all lint errors.
         with record_failure():
-            isort(files, project_paths=project_paths, check=True)
+            isort(files, check=True)
         with record_failure():
             black(files, check=True)
         with record_failure():
@@ -151,15 +155,12 @@ def check(override_config, files):
 @click.argument("files", nargs=-1)
 def fix(*, override_config, files):
     try:
-        project_paths = get_project_paths()
+        files = files or get_project_paths()
         copy_configuration(override=override_config)
 
-        files = files or project_paths
-
-        isort(files, project_paths=project_paths)
+        isort(files)
         black(files)
         flake8(files)
-
     except CalledProcessError as e:
         sys.exit(e.returncode)
     except KeyboardInterrupt:
