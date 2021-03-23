@@ -25,7 +25,6 @@ setup(
     package_data={"fourmat": ("assets/*.*", "assets/.*")},
     install_requires=(
         "click>=7",
-        # Pin these to avoid unplanned messy diffs.
         "black~=20",
         "flake8-bugbear~=21",
         "flake8~=3",
