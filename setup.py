@@ -26,10 +26,10 @@ setup(
     install_requires=(
         "click>=7",
         # Pin these to avoid unplanned messy diffs.
-        "black==20.8b1",
-        "flake8-bugbear==20.1.4",
-        "flake8==3.9",
-        "isort~=5.5",
+        "black~=20",
+        "flake8-bugbear~=21",
+        "flake8~=3",
+        "isort~=5",
     ),
     entry_points={"console_scripts": ("fourmat = fourmat:cli",)},
 )
