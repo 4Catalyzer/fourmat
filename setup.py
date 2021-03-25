@@ -25,11 +25,10 @@ setup(
     package_data={"fourmat": ("assets/*.*", "assets/.*")},
     install_requires=(
         "click>=7",
-        # Pin these to avoid unplanned messy diffs.
         "black==20.8b1",
-        "flake8-bugbear==20.1.4",
-        "flake8==3.8.4",
-        "isort~=5.5",
+        "flake8-bugbear>=21,<22",
+        "flake8>=3,<4",
+        "isort>=5,<6",
     ),
     entry_points={"console_scripts": ("fourmat = fourmat:cli",)},
 )
