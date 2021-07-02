@@ -1,10 +1,9 @@
-import fnmatch
 import shutil
 import subprocess
 import sys
 from contextlib import contextmanager
 from pathlib import Path
-from subprocess import PIPE, CalledProcessError
+from subprocess import CalledProcessError
 
 import click
 
@@ -16,39 +15,13 @@ CONFIG_FILE = Path(".fourmat")
 
 SNAPSHOT_GLOB = "*/snapshots/snap_*.py"
 SNAPSHOT_REGEX = r".*\/snapshots\/snap_.*\.py"
-CONFIGURATION_FILES = (".flake8", ".isort.cfg", "pyproject.toml")
+CONFIGURATION_FILES = (".flake8", "pyproject.toml")
 
 # -----------------------------------------------------------------------------
 
 
 def get_project_paths():
     return CONFIG_FILE.read_text().split()
-
-
-def get_dirty_filenames(paths, *, staged=False):
-    filenames = subprocess.run(
-        (
-            "git",
-            "diff-index",
-            "--name-only",
-            "--diff-filter",
-            "ACM",
-            *(("--cached",) if staged else ()),
-            "HEAD",
-            "--",
-            *paths,
-        ),
-        check=True,
-        stdout=PIPE,
-        encoding=sys.getdefaultencoding(),
-    ).stdout.split()
-
-    return tuple(
-        filename
-        for filename in filenames
-        if Path(filename).suffix == ".py"
-        and not fnmatch.fnmatch(filename, SNAPSHOT_GLOB)
-    )
 
 
 # -----------------------------------------------------------------------------
