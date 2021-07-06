@@ -13,8 +13,6 @@ from . import ASSETS_DIR, cli
 
 CONFIG_FILE = Path(".fourmat")
 
-SNAPSHOT_GLOB = "*/snapshots/snap_*.py"
-SNAPSHOT_REGEX = r".*\/snapshots\/snap_.*\.py"
 CONFIGURATION_FILES = (".flake8", "pyproject.toml")
 
 # -----------------------------------------------------------------------------
@@ -40,8 +38,6 @@ def black(paths, *, check=False):
         (
             "black",
             *(("--check", "--diff") if check else ()),
-            "--exclude",
-            SNAPSHOT_REGEX,
             "--quiet",
             "--",
             *paths,
@@ -55,8 +51,6 @@ def isort(paths, *, check=False):
         (
             "isort",
             *(("--check", "--diff") if check else ()),
-            "--skip-glob",
-            SNAPSHOT_GLOB,
             "--atomic",
             "--quiet",
             "--",
