@@ -17,6 +17,72 @@ SNAPSHOT_GLOB = "*/snapshots/snap_*.py"
 SNAPSHOT_REGEX = r".*\/snapshots\/snap_.*\.py"
 CONFIGURATION_FILES = (".flake8", "pyproject.toml")
 
+
+class PyProjectConfig:
+    """
+    Helper methods to access pyproject.toml settings
+    """
+
+    PATH = Path("pyproject.toml")
+    CONF = None
+
+    @property
+    def _data(self):
+        if self.CONF is None:
+            try:
+                import toml
+                self.CONF = toml.load(self.PATH)
+            except ImportError:
+                self.CONF = {}
+        return self.CONF
+
+    @property
+    def isort(self):
+        """
+        Returns isort settings in pyproject.toml
+        """
+        return self._data.get("isort") or None
+
+    @property
+    def black(self):
+        """
+        Returns black settings in pyproject.toml
+        """
+        return self._data.get("black") or None
+
+
+PY_PROJECT_CONFIG = PyProjectConfig()
+
+
+class IsortConfig:
+    DOT_ISORT = Path(".isort.cfg")
+
+    def __init__(self):
+        self._has_extend_skip_glob = None
+
+    @property
+    def has_extend_skip_glob(self):
+        """
+        Returns True if the user has specified extend_skip_glob in their .isort.cfg
+        or pyproject.toml configuration.
+        """
+        if self._has_extend_skip_glob is None:
+            if self.DOT_ISORT.exists():
+                self._has_extend_skip_glob = (
+                    "extend_skip_glob" in self.DOT_ISORT.read_text()
+                )
+            else:
+                isort_cfg = PY_PROJECT_CONFIG.isort
+                if isort_cfg is not None:
+                    self._has_extend_skip_glob = (
+                        "extend_skip_glob" in isort_cfg
+                    )
+            self._has_extend_skip_glob = False
+        return self._has_extend_skip_glob
+
+
+ISORT_CONFIG = IsortConfig()
+
 # -----------------------------------------------------------------------------
 
 
@@ -36,12 +102,17 @@ def copy_configuration(override=False):
 
 
 def black(paths, *, check=False):
+    # Do not override extend-exclude if the user has specified it in their black configuration
+    exclude_arg = (
+        ()
+        if "extend_exclude" in (PY_PROJECT_CONFIG.black or {})
+        else ("--extend-exclude", SNAPSHOT_REGEX)
+    )
     subprocess.run(
         (
             "black",
             *(("--check", "--diff") if check else ()),
-            "--exclude",
-            SNAPSHOT_REGEX,
+            *exclude_arg,
             "--quiet",
             "--",
             *paths,
@@ -51,12 +122,17 @@ def black(paths, *, check=False):
 
 
 def isort(paths, *, check=False):
+    # Do not override extend-skip-glob if the user has specified it in their isort configuration
+    skip_arg = (
+        ()
+        if ISORT_CONFIG.has_extend_skip_glob
+        else ("--extend-skip-glob", SNAPSHOT_GLOB)
+    )
     subprocess.run(
         (
             "isort",
             *(("--check", "--diff") if check else ()),
-            "--skip-glob",
-            SNAPSHOT_GLOB,
+            *skip_arg,
             "--atomic",
             "--quiet",
             "--",
