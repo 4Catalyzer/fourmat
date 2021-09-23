@@ -47,12 +47,17 @@ class Project:
         def cursor_is_project_root():
             if (cursor / "pyproject.toml").exists():
                 return True
+            if (cursor / ".fourmat").exists():
+                return True
             if git_root_path and paths_are_equal(git_root_path, cursor):
                 return True
 
+        # Search iteratively through parent directories until the project root is reached.
         while not cursor_is_project_root():
             next_wd = cursor.parent
             if paths_are_equal(next_wd, cursor):
+                # Root directory reached. Default to PWD of execution.
+                cursor = init_wd
                 break
             cursor = next_wd
 
