@@ -25,12 +25,20 @@ def test_with_pyproject(reset):
         assert str(Project.get_root()) == str(test_project_path)
 
 
+def test_with_fourmat_file(reset):
+    test_project_path = (
+        TEST_DIR / "fixture" / "test_project_fourmat"
+    ).resolve()
+    with PathContext(test_project_path):
+        assert str(Project.get_root()) == str(test_project_path)
+
+
 def test_fixture_dir(reset):
     fixture = (TEST_DIR / "fixture").resolve()
     with PathContext(fixture):
         assert str(Project.get_root()) == str(REPO_ROOT)
 
 
-def test_system(reset):
+def test_system_pwd_fallback(reset):
     with PathContext("/tmp"):
-        assert str(Project.get_root()) == "/"
+        assert str(Project.get_root()) == str(Path("/tmp").resolve())
