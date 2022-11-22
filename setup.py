@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="fourmat",
-    version="0.11.1",
+    version="0.12.0",
     description="A library for batteries-included linting and autoformatting",
     url="https://github.com/4Catalyzer/fourmat",
     author="Giacomo Tagliabue",
@@ -27,7 +27,7 @@ setup(
     package_data={"fourmat": ("assets/*.*", "assets/.*")},
     install_requires=(
         "click>=7",
-        "black==22.3.0",
+        "black==22.10.0",
         "flake8-bugbear>=21,<22",
         "flake8>=3,<4",
         "isort>=5,<6",
