@@ -1,15 +1,15 @@
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
 import click
-from pkg_resources import DistributionNotFound, get_distribution
 
 # -----------------------------------------------------------------------------
 
+
 try:
-    __version__ = get_distribution(__name__).version
-except DistributionNotFound:
-    # package is not installed
-    pass
+    __version__ = version(__name__)
+except PackageNotFoundError:
+    raise RuntimeError(f"Package '{__name__}' is not installed.")
 
 # -----------------------------------------------------------------------------
 
