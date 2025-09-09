@@ -16,6 +16,7 @@ CONFIG_FILE = ".fourmat"
 
 CONFIGURATION_FILES = (".flake8", "pyproject.toml")
 
+
 # -----------------------------------------------------------------------------
 class PathContext:
     def __init__(self, path):
