@@ -9,7 +9,8 @@ import click
 try:
     __version__ = version(__name__)
 except PackageNotFoundError:
-    raise RuntimeError(f"Package '{__name__}' is not installed.")
+    # package is not installed
+    pass
 
 # -----------------------------------------------------------------------------
 
