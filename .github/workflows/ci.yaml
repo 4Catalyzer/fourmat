@@ -33,8 +33,10 @@ jobs:
       - name: Run tox
         run: tox
 
-  deploy:
+  publish:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - name: Check out repository
