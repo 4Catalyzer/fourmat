@@ -10,7 +10,7 @@ setup(
     license="MIT",
     python_requires=">=3.10",
     classifiers=[
-        "License :: OSI Approved :: MIT License",
+        "MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
